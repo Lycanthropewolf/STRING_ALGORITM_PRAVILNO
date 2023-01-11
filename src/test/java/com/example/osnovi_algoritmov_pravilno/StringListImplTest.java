@@ -4,10 +4,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class StringListImplTest {
 
-    private StringList expected;
-    private StringList actual;
+    private StringListImpl expected;
+    private StringListImpl actual;
 
     @BeforeEach
     public void setUp() {
@@ -38,21 +40,21 @@ public class StringListImplTest {
         stringList1.add(string2);
         stringList1.add(string3);
         stringList1.add(string4);
-        Assertions.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 
     @Test
     public void addByIndex() {
-        expected.add(2, "set");
-        actual.add(2, "set");
-        Assertions.assertEquals(expected,actual);
+        expected.add(1, "set");
+        actual.add(1, "set");
+        assertEquals(expected, actual);
     }
 
     @Test
     public void set() {
         expected.set(1, "s1");
         actual.set(1, "s1");
-        Assertions.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -64,9 +66,9 @@ public class StringListImplTest {
 
     @Test
     public void removeByString() {
-        expected.remove("s4");
-        actual.remove("s4");
-        Assertions.assertEquals(expected, actual);
+        expected.remove("s1");
+        actual.remove("s2");
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -76,17 +78,17 @@ public class StringListImplTest {
 
     @Test
     public void indexOf() {
-        Assertions.assertEquals(expected.indexOf("s1"), 0);
+        assertEquals(expected.indexOf("s1"), 0);
     }
 
     @Test
     public void lastIndexOf() {
-        Assertions.assertEquals(expected.indexOf("s1"), 0);
+        assertEquals(expected.indexOf("s2"), 0);
     }
 
     @Test
     public void get() {
-        Assertions.assertEquals(expected.indexOf("s1"), 0);
+        assertEquals(expected.indexOf("s1"), 0);
     }
 
     @Test
@@ -96,7 +98,7 @@ public class StringListImplTest {
 
     @Test
     public void size() {
-        Assertions.assertEquals(expected.size(), actual.size());
+        assertEquals(expected.size(), actual.size());
     }
 
     @Test
@@ -108,5 +110,16 @@ public class StringListImplTest {
     public void clear() {
         expected.clear();
         Assertions.assertTrue(expected.isEmpty());
+    }
+
+    @Test
+    public void toArray() {
+        String[] strings1 = expected.toArray();
+        String[] strings2 = new String[10];
+        strings2[0]="s1";
+        strings2[1]="s2";
+        strings2[2]="s3";
+        strings2[3]="s4";
+        Assertions.assertArrayEquals(strings1,strings2);
     }
 }
