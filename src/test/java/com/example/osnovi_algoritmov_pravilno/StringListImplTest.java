@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StringListImplTest {
 
@@ -40,40 +40,40 @@ public class StringListImplTest {
         stringList1.add(string2);
         stringList1.add(string3);
         stringList1.add(string4);
-        assertEquals(expected, actual);
+        assertTrue(expected.equals(stringList1));
     }
 
     @Test
     public void addByIndex() {
         expected.add(1, "set");
         actual.add(1, "set");
-        assertEquals(expected, actual);
+        assertTrue(expected.equals(actual));
     }
 
     @Test
     public void set() {
         expected.set(1, "s1");
         actual.set(1, "s1");
-        assertEquals(expected, actual);
+        assertTrue(expected.equals(actual));
     }
 
     @Test
     public void removeByIndex() {
         expected.remove(1);
         actual.remove(1);
-        Assertions.assertEquals(expected, actual);
+        assertTrue(expected.equals(actual));
     }
 
     @Test
     public void removeByString() {
         expected.remove("s1");
-        actual.remove("s2");
-        assertEquals(expected, actual);
+        actual.remove("s1");
+        assertTrue(expected.equals(actual));
     }
 
     @Test
     public void contains() {
-        Assertions.assertTrue(actual.contains("s1"));
+        assertTrue(actual.contains("s4"));
     }
 
     @Test
@@ -83,7 +83,7 @@ public class StringListImplTest {
 
     @Test
     public void lastIndexOf() {
-        assertEquals(expected.indexOf("s2"), 0);
+        assertEquals(expected.indexOf("s2"), 1);
     }
 
     @Test
@@ -93,7 +93,7 @@ public class StringListImplTest {
 
     @Test
     public void equals() {
-        Assertions.assertTrue(expected.equals(actual));
+        assertTrue(expected.equals(actual));
     }
 
     @Test
@@ -103,13 +103,13 @@ public class StringListImplTest {
 
     @Test
     public void isEmpty() {
-        Assertions.assertFalse(expected.isEmpty());
+        assertFalse(expected.isEmpty());
     }
 
     @Test
     public void clear() {
         expected.clear();
-        Assertions.assertTrue(expected.isEmpty());
+        assertTrue(expected.isEmpty());
     }
 
     @Test
@@ -120,6 +120,12 @@ public class StringListImplTest {
         strings2[1]="s2";
         strings2[2]="s3";
         strings2[3]="s4";
-        Assertions.assertArrayEquals(strings1,strings2);
+        strings2[4]="";
+        strings2[5]="";
+        strings2[6]="";
+        strings2[7]="";
+        strings2[8]="";
+        strings2[9]="";
+        assertArrayEquals(strings1,strings2);
     }
 }
