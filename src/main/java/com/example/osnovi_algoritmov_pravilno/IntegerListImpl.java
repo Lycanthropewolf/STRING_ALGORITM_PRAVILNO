@@ -20,7 +20,7 @@ public class IntegerListImpl implements IntegerList {
     private Integer[] createArray(int size) {
         Integer[] array = new Integer[size];
         for (int i = 0; i < array.length; i++) {
-            array[i] = null;
+            array[i] = 0;
         }
         return array;
     }
@@ -29,7 +29,7 @@ public class IntegerListImpl implements IntegerList {
     public Integer add(Integer item) {
         checkItem(item);
         for (int i = 0; i < integerList.length; i++) {
-            if (integerList[i] == null) {
+            if (integerList[i] == 0) {
                 integerList[i] = item;
                 return item;
             }
@@ -67,7 +67,7 @@ public class IntegerListImpl implements IntegerList {
     }
 
     private boolean lastElementIsEmpty(Integer[] array) {
-        return array[array.length - 1] == 0;
+        return array[array.length - 1] == null;
     }
 
     @Override
