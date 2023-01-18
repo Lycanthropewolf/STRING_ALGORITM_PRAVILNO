@@ -13,7 +13,7 @@ public class IntegerListImpl implements IntegerList {
         if (size <= 0) {
             throw new IllegalArgumentException();
         }
-        this.size = size();
+        this.size = size;
         this.integerList = createArray(size);
     }
 

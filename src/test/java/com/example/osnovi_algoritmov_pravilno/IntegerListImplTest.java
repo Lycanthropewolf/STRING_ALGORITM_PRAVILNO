@@ -44,8 +44,8 @@ public class IntegerListImplTest {
 
     @Test
     public void addByIndex() {
-        expected.add(1, 1);
-        actual.add(1, 1);
+        expected.add(1);
+        actual.add(1);
         assertTrue(expected.equals(actual));
     }
 
