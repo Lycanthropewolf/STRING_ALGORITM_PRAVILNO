@@ -35,17 +35,9 @@ public class IntegerListImpl implements IntegerList {
             }
         }
         int index = integerList.length;
-        integerList = extendArray(integerList);
+        grow();
         integerList[index] = item;
         return item;
-    }
-
-    private Integer[] extendArray(Integer[] array) {
-        Integer[] newArray = createArray(array.length + BUFFER);
-        for (int i = 0; i < array.length; i++) {
-            newArray[i] = array[i];
-        }
-        return newArray;
     }
 
     @Override
@@ -54,7 +46,7 @@ public class IntegerListImpl implements IntegerList {
         checkItem(item);
         int lastIndex = integerList.length - 1;
         if (!lastElementIsEmpty(integerList)) {
-            integerList = extendArray(integerList);
+            grow();
             lastIndex = integerList.length;
         }
         for (int i = lastIndex; i >= 0; i--) {
@@ -112,12 +104,7 @@ public class IntegerListImpl implements IntegerList {
     @Override
     public boolean contains(Integer item) {
         checkItem(item);
-        for (int i = 0; i < integerList.length; i++) {
-            if (integerList[i].equals(item)) {
-                return true;
-            }
-        }
-        return false;
+        return IntegerListImpl.binarySearch(Arrays.copyOf(integerList, integerList.length), item) > -1;
     }
 
     @Override
@@ -265,8 +252,39 @@ public class IntegerListImpl implements IntegerList {
     }
 
     private static int binarySearch(Integer[] integers, Integer item) {
-        IntegerListImpl.sortInsertion(integers);
+        IntegerListImpl.quickSort(integers,0,integers.length-1);
         return Arrays.binarySearch(integers, item);
+    }
+
+    public static void quickSort(Integer[] arr, int begin, int end) {
+        if (begin < end) {
+            int partitionIndex = partition(arr, begin, end);
+            quickSort(arr, begin, partitionIndex - 1);
+            quickSort(arr, partitionIndex + 1, end);
+        }
+    }
+
+    private static int partition(Integer[] arr, int begin, int end) {
+        int pivot = arr[end];
+        int i = (begin - 1);
+        for (int j = begin; j < end; j++) {
+            if (arr[j] <= pivot) {
+                i++;
+                swapElement(arr, i, j);
+            }
+        }
+        swapElement(arr, i + 1, end);
+        return i + 1;
+    }
+
+    private static void swapElement(Integer[] arr, Integer left, Integer right) {
+        int temp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = temp;
+    }
+
+    public void grow() {
+        this.integerList = Arrays.copyOf(integerList, (int) (integerList.length * 1.5));
     }
 
     public static void main(String[] args) {
