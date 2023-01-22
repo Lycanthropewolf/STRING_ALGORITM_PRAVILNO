@@ -4,10 +4,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class StringListImplTest {
 
-    private StringList expected;
-    private StringList actual;
+    private StringListImpl expected;
+    private StringListImpl actual;
 
     @BeforeEach
     public void setUp() {
@@ -38,75 +40,92 @@ public class StringListImplTest {
         stringList1.add(string2);
         stringList1.add(string3);
         stringList1.add(string4);
-        Assertions.assertEquals(expected, actual);
+        assertTrue(expected.equals(stringList1));
     }
 
     @Test
     public void addByIndex() {
-        expected.add(2, "set");
-        actual.add(2, "set");
-        Assertions.assertEquals(expected,actual);
+        expected.add(1, "set");
+        actual.add(1, "set");
+        assertTrue(expected.equals(actual));
     }
 
     @Test
     public void set() {
         expected.set(1, "s1");
         actual.set(1, "s1");
-        Assertions.assertEquals(expected, actual);
+        assertTrue(expected.equals(actual));
     }
 
     @Test
     public void removeByIndex() {
         expected.remove(1);
         actual.remove(1);
-        Assertions.assertEquals(expected, actual);
+        assertTrue(expected.equals(actual));
     }
 
     @Test
     public void removeByString() {
-        expected.remove("s4");
-        actual.remove("s4");
-        Assertions.assertEquals(expected, actual);
+        expected.remove("s1");
+        actual.remove("s1");
+        assertTrue(expected.equals(actual));
     }
 
     @Test
     public void contains() {
-        Assertions.assertTrue(actual.contains("s1"));
+        assertTrue(actual.contains("s4"));
     }
 
     @Test
     public void indexOf() {
-        Assertions.assertEquals(expected.indexOf("s1"), 0);
+        assertEquals(expected.indexOf("s1"), 0);
     }
 
     @Test
     public void lastIndexOf() {
-        Assertions.assertEquals(expected.indexOf("s1"), 0);
+        assertEquals(expected.indexOf("s2"), 1);
     }
 
     @Test
     public void get() {
-        Assertions.assertEquals(expected.indexOf("s1"), 0);
+        assertEquals(expected.indexOf("s1"), 0);
     }
 
     @Test
     public void equals() {
-        Assertions.assertTrue(expected.equals(actual));
+        assertTrue(expected.equals(actual));
     }
 
     @Test
     public void size() {
-        Assertions.assertEquals(expected.size(), actual.size());
+        assertEquals(expected.size(), actual.size());
     }
 
     @Test
     public void isEmpty() {
-        Assertions.assertFalse(expected.isEmpty());
+        assertFalse(expected.isEmpty());
     }
 
     @Test
     public void clear() {
         expected.clear();
-        Assertions.assertTrue(expected.isEmpty());
+        assertTrue(expected.isEmpty());
+    }
+
+    @Test
+    public void toArray() {
+        String[] strings1 = expected.toArray();
+        String[] strings2 = new String[10];
+        strings2[0]="s1";
+        strings2[1]="s2";
+        strings2[2]="s3";
+        strings2[3]="s4";
+        strings2[4]="";
+        strings2[5]="";
+        strings2[6]="";
+        strings2[7]="";
+        strings2[8]="";
+        strings2[9]="";
+        assertArrayEquals(strings1,strings2);
     }
 }
